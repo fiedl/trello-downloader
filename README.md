@@ -25,9 +25,14 @@ This will create:
 
 ## Installation
 
+This tool requires [ruby](https://www.ruby-lang.org).
+
 ```bash
 cd ~/code
 git clone git@github.com:fiedl/trello-downloader.git
+
+cd trello-downloader
+bundle install
 ```
 
 Create an API key pair and store it in environment variables, e.g. in `~/.zshenv`:
