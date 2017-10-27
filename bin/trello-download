@@ -5,6 +5,7 @@ require 'optparse'
 require 'fileutils'
 require 'fiedl/log'
 require 'pp'
+require 'pry'
 
 require_relative '../lib/trello_downloader'
 
