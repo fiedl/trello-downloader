@@ -30,6 +30,28 @@ cd ~/code
 git clone git@github.com:fiedl/trello-downloader.git
 ```
 
+Create an API key pair and store it in environment variables, e.g. in `~/.zshenv`:
+
+```bash
+# ~/.zshenv
+
+# Trello Downloader
+export TRELLO_DOWNLOADER_DEVELOPER_PUBLIC_KEY=...
+export TRELLO_DOWNLOADER_MEMBER_TOKEN=...
+```
+
+A simple way to create those, is using the [ruby-trello api client](https://github.com/jeremytregunna/ruby-trello):
+
+```bash
+$ gem install ruby-trello
+$ irb -rubygems
+irb> require 'trello'
+irb> Trello.open_public_key_url                         # copy your public key
+irb> Trello.open_authorization_url key: 'yourpublickey' # copy your member token
+```
+
+
+
 ## Author and License
 
 (c) 2017 Sebastian Fiedlschuster

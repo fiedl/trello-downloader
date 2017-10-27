@@ -24,8 +24,8 @@ end.parse!
 options[:download_directory] ||= File.expand_path("~/Downloads")
 
 Trello.configure do |config|
-  config.developer_public_key = ENV['TRELLO_DEVELOPER_PUBLIC_KEY'] || raise('token not given')
-  config.member_token = ENV['TRELLO_MEMBER_TOKEN'] || raise('token not given')
+  config.developer_public_key = ENV['TRELLO_DOWNLOADER_DEVELOPER_PUBLIC_KEY'] || raise('token not given')
+  config.member_token = ENV['TRELLO_DOWNLOADER_MEMBER_TOKEN'] || raise('token not given')
 end
 
 TrelloDownloader.download_directory = options[:download_directory] || raise('no download directory')
