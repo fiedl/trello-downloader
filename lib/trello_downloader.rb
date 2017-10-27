@@ -8,6 +8,10 @@ class TrelloDownloader
     def download_card(url)
       card_id = url.match(/https:\/\/trello.com\/c\/([^\/]*)\//)[1]
       card = Trello::Card.find(card_id)
+
+      export card, "card", local_card_path(card)
+      export card.actions, "actions", local_card_path(card)
+
       MarkdownCard.new(card).export_to(local_card_file(card))
       CardAttachments.new(card).download_to(local_card_path(card))
     end
@@ -29,5 +33,16 @@ class TrelloDownloader
     def sanitize_for_path(string)
       string.gsub(":", "").gsub("/", "-")
     end
+
+    def export(api_object, filetitle, path)
+      export_to_json_and_yaml(api_object, filetitle, path)
+    end
+
+    def export_to_json_and_yaml(api_object, filetitle, path)
+      file = File.join path, filetitle
+      File.open("#{file}.json", 'w') { |file| file.write(api_object.to_json) }
+      File.open("#{file}.yaml", 'w') { |file| file.write(api_object.to_yaml) }
+    end
+
   end
 end
