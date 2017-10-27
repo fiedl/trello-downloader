@@ -22,6 +22,7 @@ class MarkdownCard
       Url: #{card.url}
       Board: [#{card.board.name}](#{card.board.url})
       List: #{card.list.name}
+      Due: #{"✔" if card.due_complete} #{card.due}
 
       #{card.desc}
 
