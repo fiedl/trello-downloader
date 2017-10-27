@@ -21,6 +21,10 @@ class MarkdownCard
 
       Url: #{card.url}
       Board: [#{card.board.name}](#{card.board.url})
+      List: #{card.list.name}
+
+      #{card.desc}
+
 
       ## Attachments
 
