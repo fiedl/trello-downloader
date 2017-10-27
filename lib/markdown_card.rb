@@ -22,6 +22,10 @@ class MarkdownCard
       Url: #{card.url}
       Board: [#{card.board.name}](#{card.board.url})
 
+      ## Attachments
+
+      #{CardAttachments.new(card).to_s}
+
       ## Comments
 
       #{card.actions(limit: 1000).collect { |comment| MarkdownAction.new(comment).to_s }.join("\n___\n")}

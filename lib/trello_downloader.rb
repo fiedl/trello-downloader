@@ -1,4 +1,5 @@
 require_relative 'markdown_card'
+require_relative 'card_attachments'
 
 class TrelloDownloader
   class << self
@@ -8,7 +9,7 @@ class TrelloDownloader
       card_id = url.match(/https:\/\/trello.com\/c\/([^\/]*)\//)[1]
       card = Trello::Card.find(card_id)
       MarkdownCard.new(card).export_to(local_card_file(card))
-      #    comments = card.actions({filter: 'commentCard'})
+      CardAttachments.new(card).download_to(local_card_path(card))
     end
 
     def local_board_path(board)
