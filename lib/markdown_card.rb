@@ -25,6 +25,9 @@ class MarkdownCard
 
       #{card.desc}
 
+      ## Members
+
+      #{card_members}
 
       ## Attachments
 
@@ -34,6 +37,12 @@ class MarkdownCard
 
       #{card.actions(limit: 1000).collect { |comment| MarkdownAction.new(comment).to_s }.join("\n___\n")}
     EOS
+  end
+
+  def card_members
+    card.members.collect { |member|
+      "- #{member.full_name} (@#{member.username})"
+    }.join("\n")
   end
 
 end
