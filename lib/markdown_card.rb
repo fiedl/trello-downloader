@@ -34,6 +34,10 @@ class MarkdownCard
 
       #{CardAttachments.new(card).to_s}
 
+      ## Checklists
+
+      #{card_checklists}
+
       ## Comments
 
       #{card.actions(limit: 1000).collect { |comment| MarkdownAction.new(comment).to_s }.join("\n___\n")}
@@ -44,6 +48,13 @@ class MarkdownCard
     card.members.collect { |member|
       "- #{member.full_name} (@#{member.username})"
     }.join("\n")
+  end
+
+  def card_checklists
+    card.checklists.collect { |checklist|
+      "### #{checklist.name}\n" +
+      checklist.items.collect { |item| "- [#{item.complete? ? "✔" : " "}] #{item.name}" }.join("\n")
+    }.join("\n\n")
   end
 
 end
