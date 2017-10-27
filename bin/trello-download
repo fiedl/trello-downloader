@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+
+require 'trello'
+require 'optparse'
+require 'fileutils'
+require 'fiedl/log'
+require 'pp'
+
+require_relative '../lib/trello_downloader'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: trello-download [options] url"
+
+  # opts.on "--resume" do
+  #   options[:resume] = true
+  # end
+  opts.on "--download-directory=PATH", "Defauts to ~/Downloads" do |path|
+    options[:download_directory] = File.expand_path(path)
+  end
+
+end.parse!
+
+options[:download_directory] ||= File.expand_path("~/Downloads")
+
+Trello.configure do |config|
+  config.developer_public_key = ENV['TRELLO_DEVELOPER_PUBLIC_KEY'] || raise('token not given')
+  config.member_token = ENV['TRELLO_MEMBER_TOKEN'] || raise('token not given')
+end
+
+TrelloDownloader.download_directory = options[:download_directory] || raise('no download directory')
+
+ARGV.each do |url|
+
+  TrelloDownloader.download_card(url) if url.include? "https://trello.com/c/"
+
+end
+
+# card_url = "https://trello.com/c/r9HH0RhQ/979-commits-in-trello-posten"
+
+#payload.commits.each do |commit|
+#  commit['message'].scan(/https:\/\/trello.com\/c\/([^\/]*)\//).flatten.each do |card_id|
+#    card = Trello::Card.find(card_id)
+#    comments = card.actions({filter: 'commentCard'})
+#    if comments.select { |comment| comment.data["text"].include?(commit['id']) }.count == 0
+#      card.add_comment "Commit: #{commit['url']}, Branch: #{payload.branch}\n\n#{commit['message']}"
+#    end
+#  end
+#end
