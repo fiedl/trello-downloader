@@ -17,15 +17,13 @@ class TrelloDownloader
     end
 
     def local_card_path(card)
-      created_at = card.actions(limit: 1000).last.date
-      File.join local_board_path(card.board), "#{created_at.strftime("%Y-%m-%d")} #{sanitize_for_path(card.name)}"
+      File.join local_board_path(card.board), "#{card.created_at.strftime("%Y-%m-%d")} #{sanitize_for_path(card.name)}"
     end
 
     def local_card_file(card)
-      created_at = card.actions(limit: 1000).last.date
       File.join local_board_path(card.board),
-          "#{created_at.strftime("%Y-%m-%d")} #{sanitize_for_path(card.name)}",
-          "#{created_at.strftime("%Y-%m-%d")} #{sanitize_for_path(card.name)}.md"
+          "#{card.created_at.strftime("%Y-%m-%d")} #{sanitize_for_path(card.name)}",
+          "#{card.created_at.strftime("%Y-%m-%d")} #{sanitize_for_path(card.name)}.md"
     end
 
     def sanitize_for_path(string)
