@@ -34,9 +34,9 @@ class MarkdownAction
         "    #{action.data}"
       end
     when 'addAttachmentToCard'
-      "📎 #{action.data['attachment']['name']}" + if action.data['attachment']['mimeType'].include?('image')
+      "📎 #{action.data['attachment']['name']}" + if action.data['attachment']['url'].try(:match, /\.(gif|jpg|jpeg|tiff|png)$/i)
         "\n\n![image](#{open(action.data['attachment']['url']).base_uri.to_s.split('/')[-1]})"
-      end
+      else "" end
     when 'deleteAttachmentFromCard'
       "✘ #{action.data['attachment']['name']}"
     else
