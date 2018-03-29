@@ -1,3 +1,4 @@
+require 'fileutils'
 require 'yaml'
 require_relative 'markdown_card'
 require_relative 'card_attachments'
@@ -36,6 +37,7 @@ class TrelloDownloader
     end
 
     def export(api_object, filetitle, path)
+      FileUtils.mkdir_p path
       export_to_json_and_yaml(api_object, filetitle, path)
     end
 
