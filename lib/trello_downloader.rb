@@ -1,3 +1,4 @@
+require 'yaml'
 require_relative 'markdown_card'
 require_relative 'card_attachments'
 
