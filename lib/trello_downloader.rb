@@ -8,7 +8,7 @@ class TrelloDownloader
     attr_accessor :download_directory
 
     def download_card(url)
-      card_id = url.match(/https:\/\/trello.com\/c\/([^\/]*)\//)[1]
+      card_id = url.match(/https:\/\/trello.com\/c\/([^\/]*)/)[1]
       card = Trello::Card.find(card_id)
 
       export card, "card", local_card_path(card)
